@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { GeneralSuccessfulResponse } from 'src/app.types';
 import FakeDb from 'src/fake-db';
 import { AddUserDTO, EditUserDTO } from './users.dto';
@@ -27,6 +27,9 @@ export class UsersService {
 
   async updateUser(user: EditUserDTO): Promise<User> {
     const userIndex = this.fakeDb.users.findIndex(({ id }) => id === user.id);
+    if (userIndex === -1) {
+      throw new NotFoundException();
+    }
     this.fakeDb.users[userIndex] = {
       ...this.fakeDb.users[userIndex],
       ...user,

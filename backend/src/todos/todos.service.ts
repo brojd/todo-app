@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { GeneralSuccessfulResponse } from 'src/app.types';
 import FakeDb from 'src/fake-db';
 import { AddTodoDTO, EditTodoDTO } from './todos.dto';
@@ -27,6 +27,9 @@ export class TodosService {
 
   async updateTodo(todo: EditTodoDTO): Promise<Todo> {
     const todoIndex = this.fakeDb.todos.findIndex(({ id }) => id === todo.id);
+    if (todoIndex === -1) {
+      throw new NotFoundException();
+    }
     this.fakeDb.todos[todoIndex] = {
       ...this.fakeDb.todos[todoIndex],
       ...todo,
