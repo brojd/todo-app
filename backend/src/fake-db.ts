@@ -4,9 +4,9 @@ import { User } from './users/users.types';
 
 const INITIAL_USERS: User[] = [{ id: '1', name: 'John', surname: 'Doe' }];
 const INITIAL_TODOS: Todo[] = [
-  { id: '1', name: 'Buy milk', description: 'Milk is good', isDone: false },
+  { id: 'TD-1', name: 'Buy milk', description: 'Milk is good', isDone: false },
   {
-    id: '2',
+    id: 'TD-2',
     name: 'Buy bread',
     description: 'Bread is good',
     isDone: false,
