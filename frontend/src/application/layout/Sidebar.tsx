@@ -40,7 +40,7 @@ const Sidebar = () => (
     </SidebarSection>
     <Divider />
     <SidebarSection>
-      <NavGroup title="ToDo App" defaultIsOpen>
+      <NavGroup title="Menu" defaultIsOpen>
         <LinkNavItem icon={<RiTodoLine />} path="/" title="Todos" />
         <LinkNavItem icon={<RiGroupLine />} path="/users" title="Users" />
       </NavGroup>

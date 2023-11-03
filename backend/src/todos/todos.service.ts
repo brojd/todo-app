@@ -3,6 +3,7 @@ import { GeneralSuccessfulResponse } from 'src/app.types';
 import FakeDb from 'src/fake-db';
 import { AddTodoDTO, EditTodoDTO } from './todos.dto';
 import { Todo } from './todos.types';
+import { getNewTodoId } from './todos.utils';
 
 @Injectable()
 export class TodosService {
@@ -19,7 +20,7 @@ export class TodosService {
   async addTodo(todo: AddTodoDTO): Promise<Todo> {
     const newTodo = {
       ...todo,
-      id: `${this.fakeDb.todos.length + 1}`,
+      id: getNewTodoId(this.fakeDb.todos),
     };
     this.fakeDb.todos.push(newTodo);
     return newTodo;
@@ -30,10 +31,7 @@ export class TodosService {
     if (todoIndex === -1) {
       throw new NotFoundException();
     }
-    this.fakeDb.todos[todoIndex] = {
-      ...this.fakeDb.todos[todoIndex],
-      ...todo,
-    };
+    this.fakeDb.todos[todoIndex] = todo;
     return this.fakeDb.todos[todoIndex];
   }
 

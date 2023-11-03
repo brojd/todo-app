@@ -8,7 +8,10 @@ class CommonStore {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  setLoadingState(key: string, state: LoadingState) {
+  setLoadingState(key: string, state: LoadingState, keySuffix?: string) {
+    if (keySuffix) {
+      key = `${key}-${keySuffix}`;
+    }
     this.loadingStates[key] = state;
   }
 }

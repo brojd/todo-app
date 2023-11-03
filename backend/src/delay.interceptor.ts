@@ -10,6 +10,6 @@ import { delay } from 'rxjs/operators';
 @Injectable()
 export class DelayInterceptor implements NestInterceptor {
   intercept(_context: ExecutionContext, next: CallHandler): Observable<any> {
-    return next.handle().pipe(delay(3000));
+    return next.handle().pipe(delay(2000));
   }
 }

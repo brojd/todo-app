@@ -1,12 +1,14 @@
 import { useContext } from 'react';
 import { RootStoreContext } from './store.context';
-import { ActionKey } from './store.types';
 
 export const useStore = () => useContext(RootStoreContext);
 
-export const useIsLoading = (actionKey: ActionKey) => {
+export const useIsLoading = (actionKey: string | string[]) => {
   const {
     common: { loadingStates },
   } = useStore();
-  return loadingStates[actionKey] === 'loading';
+  if (typeof actionKey === 'string') {
+    return loadingStates[actionKey] === 'loading';
+  }
+  return actionKey.some((key) => loadingStates[key] === 'loading');
 };

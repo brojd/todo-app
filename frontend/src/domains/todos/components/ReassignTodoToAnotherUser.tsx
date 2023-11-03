@@ -1,36 +1,38 @@
 import {
-  Box,
   Button,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
+  Text,
 } from '@chakra-ui/react';
+import NameWithAvatar from 'components/NameWithAvatar';
+import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 import { RiArrowDownLine } from 'react-icons/ri';
-import { useStore } from 'store/store.hooks';
+import { useIsLoading, useStore } from 'store/store.hooks';
+import { ActionKey } from 'store/store.types';
 import { Todo } from '../todos.types';
 
 interface ReassignTodoToAnotherUserProps {
   todo: Todo;
 }
 
-const ReassignTodoToAnotherUser: FC<ReassignTodoToAnotherUserProps> = ({
-  todo,
-}) => {
-  const { users } = useStore();
+const ReassignTodoToAnotherUser: FC<ReassignTodoToAnotherUserProps> = observer(
+  ({ todo }) => {
+    const {
+      users: { users },
+      todos: { updateTodo },
+    } = useStore();
+    const isLoading = useIsLoading(`${ActionKey.UpdateTodo}-${todo.id}`);
 
-  const usersToChoose = users;
+    const onUserSelect = async (assigneeId?: Todo['assigneeId']) => {
+      updateTodo({ ...todo, assigneeId });
+    };
 
-  // const usersToChoose =
-  //   users?.items.filter((user) => user.id !== todo.user?.id) || [];
-  // const onUserSelect = (user: User) => {
-  //   todo.user = user;
-  //   todo.save();
-  // };
+    const currentAssignee = users.find((user) => user.id === todo.assigneeId);
 
-  return (
-    <Box>
+    return (
       <Menu>
         <MenuButton
           as={Button}
@@ -39,28 +41,30 @@ const ReassignTodoToAnotherUser: FC<ReassignTodoToAnotherUserProps> = ({
           textAlign="start"
           alignItems={'center'}
           py={4}
-          data-qa-id={QaId.ReassignTodoToAnotherUserMenuButton}
+          isLoading={isLoading}
         >
-          {todo.user ? (
-            <NameWithAvatar user={todo.user} />
+          {currentAssignee ? (
+            <NameWithAvatar
+              name={currentAssignee.name}
+              surname={currentAssignee.surname}
+            />
           ) : (
             <Text color="whiteAlpha.500">Choose user</Text>
           )}
         </MenuButton>
         <MenuList>
-          {usersToChoose.map((user) => (
-            <MenuItem
-              key={user.id}
-              onClick={() => onUserSelect(user)}
-              data-qa-id={QaId.ReassignTodoToAnotherUserOption}
-            >
-              <NameWithAvatar user={user} />
+          <MenuItem key={'Unassigned'} onClick={() => onUserSelect(undefined)}>
+            Unassigned
+          </MenuItem>
+          {users.map((user) => (
+            <MenuItem key={user.id} onClick={() => onUserSelect(user.id)}>
+              <NameWithAvatar name={user.name} surname={user.surname} />
             </MenuItem>
           ))}
         </MenuList>
       </Menu>
-    </Box>
-  );
-};
+    );
+  }
+);
 
 export default ReassignTodoToAnotherUser;

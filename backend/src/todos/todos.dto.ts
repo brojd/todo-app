@@ -11,18 +11,16 @@ export class AddTodoDTO implements Omit<Todo, 'id'> {
   @IsString()
   @MinLength(1)
   @MaxLength(50)
-  name: string;
+  title: string;
 
   @IsOptional()
   @IsString()
-  @MinLength(1)
+  @MinLength(0)
   @MaxLength(255)
   description?: string;
 
   @IsOptional()
   @IsBoolean()
-  @MinLength(1)
-  @MaxLength(50)
   isDone?: boolean;
 
   @IsOptional()

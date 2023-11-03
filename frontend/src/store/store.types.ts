@@ -1,7 +1,13 @@
-export type LoadingStateOptions = {
-  customActionKey?: string;
-};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ActionKeyConfig = string | ((args: any) => string);
 
-export type LoadingState = 'idle' | 'loading' | 'success' | 'error';
+export type LoadingState = 'loading' | 'success' | 'error';
 
-export type ActionKey = 'getAllTodos' | 'getAllUsers';
+export const ActionKey = {
+  GetAllTodos: 'getAllTodos',
+  GetAllUsers: 'getAllUsers',
+  AddTodo: 'addTodo',
+  UpdateTodo: 'updateTodo',
+  DeleteTodo: 'deleteTodo',
+} as const;
+export type ActionKey = (typeof ActionKey)[keyof typeof ActionKey];
