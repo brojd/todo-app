@@ -1,7 +1,7 @@
 import commonStore from './common.store';
 import { ActionKeyConfig } from './store.types';
 
-export function AutoLoadingState(actionKeyConfig: ActionKeyConfig) {
+export function AutoLoadingState(actionKeyConfig?: ActionKeyConfig) {
   return function (
     _target: object,
     key: string,

@@ -42,6 +42,9 @@ export class UsersService {
       ({ id: userId }) => userId === id,
     );
     this.fakeDb.users.splice(userIndex, 1);
+    this.fakeDb.todos.map((todo) =>
+      todo.assigneeId === id ? { ...todo, assigneeId: undefined } : todo,
+    );
     return { ok: true };
   }
 }

@@ -5,9 +5,12 @@ export type LoadingState = 'loading' | 'success' | 'error';
 
 export const ActionKey = {
   GetAllTodos: 'getAllTodos',
-  GetAllUsers: 'getAllUsers',
   AddTodo: 'addTodo',
   UpdateTodo: 'updateTodo',
   DeleteTodo: 'deleteTodo',
+  GetAllUsers: 'getAllUsers',
+  AddUser: 'addUser',
+  UpdateUser: 'updateUser',
+  DeleteUser: 'deleteUser',
 } as const;
 export type ActionKey = (typeof ActionKey)[keyof typeof ActionKey];
