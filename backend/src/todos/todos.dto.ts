@@ -9,13 +9,13 @@ import { Todo } from './todos.types';
 
 export class AddTodoDTO implements Omit<Todo, 'id'> {
   @IsString()
-  @MinLength(1)
+  @MinLength(3)
   @MaxLength(50)
   title: string;
 
   @IsOptional()
   @IsString()
-  @MinLength(0)
+  @MinLength(3)
   @MaxLength(255)
   description?: string;
 

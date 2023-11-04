@@ -6,6 +6,7 @@ import {
   PopoverArrow,
   PopoverContent,
   PopoverTrigger,
+  Text,
   useDisclosure,
 } from '@chakra-ui/react';
 import { Field, Form, FormLayout, SubmitButton } from '@saas-ui/react';
@@ -85,6 +86,10 @@ const AddTodo = observer(() => {
                 ]}
               />
               <SubmitButton isLoading={isLoading}>Create Todo</SubmitButton>
+              <Text fontSize={12} color="orange.300">
+                Adding less than 3 characters for title or description will
+                intentionally cause HTTP error
+              </Text>
             </FormLayout>
           </Form>
         </FocusLock>

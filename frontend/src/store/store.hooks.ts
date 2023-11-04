@@ -12,3 +12,17 @@ export const useIsLoading = (actionKey: string | string[]) => {
   }
   return actionKey.some((key) => loadingStates[key] === 'loading');
 };
+
+export const useError = (actionKey: string) => {
+  const {
+    common: { errors },
+  } = useStore();
+  return errors[actionKey];
+};
+
+export const useAllErrors = () => {
+  const {
+    common: { allErrors },
+  } = useStore();
+  return allErrors;
+};

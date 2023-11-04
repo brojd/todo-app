@@ -29,7 +29,7 @@ const TodosList = observer(() => {
   return (
     <StructuredList>
       {todos.map((todo) => (
-        <TodoListItem todo={todo} />
+        <TodoListItem todo={todo} key={todo.id} />
       ))}
     </StructuredList>
   );
@@ -39,7 +39,7 @@ interface TodoListItemProps {
   todo: Todo;
 }
 const TodoListItem: FC<TodoListItemProps> = ({ todo }) => (
-  <StructuredListItem key={todo.id}>
+  <StructuredListItem>
     <Flex alignItems="center" columnGap={2}>
       <TodoTag id={todo.id} />
       <div>{todo.title}</div>
